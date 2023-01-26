@@ -3,5 +3,7 @@ if (window.innerWidth < 768) {
 }
 
 $(document).ready(function(){
-	AOS && AOS.init();
+	if ('AOS' in window) {
+		AOS.init();
+	}
 });
