@@ -5,7 +5,6 @@
   position: fixed;
   bottom: 40px;
   right: 10px;
-  -webkit-box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
   overflow: hidden;
   text-indent: 100%;
@@ -13,12 +12,10 @@
   background: rgba(255,222,89, 0.8) url(../img/cd-top-arrow.svg) no-repeat center 50%;
   visibility: hidden;
   opacity: 0;
-  -webkit-transition: opacity .3s 0s, visibility 0s .3s, background-color .3s 0s;
   transition: opacity .3s 0s, visibility 0s .3s, background-color .3s 0s;
 }
 
 .cd-top.cd-top--show, .cd-top.cd-top--fade-out, .cd-top:hover {
-  -webkit-transition: opacity .3s 0s, visibility 0s 0s, background-color .3s 0s;
   transition: opacity .3s 0s, visibility 0s 0s, background-color .3s 0s;
 }
 
