@@ -37,6 +37,10 @@ a, a:hover {
   color: rgb(199,185,118);
 }
 
+odkaz {
+  color: rgb(0,20,51);
+}
+
 #mainNav .navbar-nav > li.nav-item > a.nav-link:focus:hover, #mainNav .navbar-nav > li.nav-item > a.nav-link:hover {
   color: rgb(0,20,51);
 }
