@@ -1,0 +1,556 @@
+/* Odpočet, základní informace a kontakty na úvodní stránce (CZ i EN) */
+
+:root {
+    --crc-navy: #001433;
+    --crc-navy-2: #0b2550;
+    --crc-yellow: #ffde59;
+    --crc-gold: #c7b976;
+    --crc-white: #ffffff;
+}
+
+/* ---------- Odpočet ---------- */
+
+.crc-countdown {
+    background: var(--crc-yellow);
+    padding: 56px 0 64px;
+    font-family: Sansation, sans-serif;
+    color: var(--crc-navy);
+}
+
+.crc-countdown__title {
+    margin: 0 0 28px;
+    font-size: 1.375rem;
+    font-weight: 700;
+    line-height: 1.3;
+    text-align: center;
+}
+
+.crc-countdown__clock {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 16px;
+}
+
+.crc-countdown__t {
+    align-self: center;
+    margin-right: 8px;
+    padding-bottom: 28px;
+    font-size: 4rem;
+    font-weight: 700;
+    line-height: 1;
+}
+
+.crc-countdown__unit {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.crc-countdown__value {
+    display: block;
+    min-width: 2.3em;
+    padding: 14px 10px 12px;
+    border-radius: 14px;
+    background: var(--crc-navy);
+    color: var(--crc-yellow);
+    font-size: 4rem;
+    font-weight: 700;
+    line-height: 1;
+    text-align: center;
+    font-variant-numeric: tabular-nums;
+}
+
+.crc-countdown__label {
+    font-size: 1rem;
+    line-height: 1.2;
+}
+
+@media (max-width: 575.98px) {
+    .crc-countdown {
+        padding: 40px 0 44px;
+    }
+    .crc-countdown__title {
+        font-size: 1.125rem;
+        margin-bottom: 20px;
+    }
+    .crc-countdown__clock {
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+    .crc-countdown__t {
+        flex-basis: 100%;
+        margin: 0 0 4px;
+        padding: 0;
+        font-size: 2rem;
+        text-align: center;
+    }
+    /* Všechny čtyři dlaždice v jednom řádku */
+    .crc-countdown__unit {
+        flex: 1 1 0;
+        min-width: 0;
+        max-width: 84px;
+    }
+    .crc-countdown__value {
+        width: 100%;
+        min-width: 0;
+        font-size: 2.25rem;
+        padding: 10px 4px 8px;
+        border-radius: 10px;
+    }
+    .crc-countdown__label {
+        font-size: 0.875rem;
+    }
+}
+
+/* ---------- Základní informace ---------- */
+
+/* Horní odsazení dává už sekce #informace (.article-list) */
+.crc-about {
+    padding-bottom: 24px;
+    font-family: Sansation, sans-serif;
+    color: var(--crc-white);
+    text-align: left;
+}
+
+/* .crc-about kvůli přebití .article-list h2 ze styles.min.css */
+.crc-about .crc-about__heading {
+    margin: 0 auto 40px;
+    max-width: 22em;
+    color: var(--crc-gold);
+    font-size: 2.25rem;
+    font-weight: 700;
+    line-height: 1.2;
+    text-align: center;
+}
+
+.crc-about__text {
+    max-width: 38rem;
+}
+
+.crc-about__text p {
+    margin: 0 0 1.1em;
+    font-size: 1.0625rem;
+    line-height: 1.65;
+}
+
+.crc-about__text strong {
+    color: var(--crc-yellow);
+}
+
+.crc-about__note {
+    padding-top: 14px;
+    border-top: 1px solid rgba(199, 185, 118, 0.4);
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.crc-about__text p.crc-about__note {
+    font-size: 0.875rem;
+    line-height: 1.5;
+}
+
+.crc-docs {
+    padding: 24px;
+    border: 1px solid rgba(199, 185, 118, 0.5);
+    border-radius: 18px;
+    background: rgba(0, 20, 51, 0.75);
+}
+
+.crc-docs__title {
+    margin: 0 0 16px;
+    color: var(--crc-gold);
+    font-size: 1.25rem;
+    font-weight: 700;
+}
+
+.crc-docs__list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.crc-docs__list li + li {
+    margin-top: 10px;
+}
+
+.crc-docs__item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 14px 16px;
+    border-radius: 12px;
+    background: var(--crc-navy-2);
+    color: var(--crc-white);
+    transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.crc-docs__item:hover,
+.crc-docs__item:focus-visible {
+    background: var(--crc-yellow);
+    color: var(--crc-navy);
+    text-decoration: none;
+}
+
+.crc-docs__item:focus-visible {
+    outline: 3px solid var(--crc-white);
+    outline-offset: 2px;
+}
+
+.crc-docs__icon {
+    flex: none;
+    width: 1.5rem;
+    color: var(--crc-yellow);
+    font-size: 1.5rem;
+    text-align: center;
+}
+
+.crc-docs__item:hover .crc-docs__icon,
+.crc-docs__item:focus-visible .crc-docs__icon {
+    color: var(--crc-navy);
+}
+
+.crc-docs__name {
+    flex: 1;
+    font-size: 1.125rem;
+    font-weight: 700;
+    line-height: 1.25;
+}
+
+.crc-docs__meta {
+    display: block;
+    font-size: 0.875rem;
+    font-weight: normal;
+    opacity: 0.75;
+}
+
+.crc-docs__download {
+    flex: none;
+    font-size: 1.125rem;
+}
+
+@media (max-width: 991.98px) {
+    .crc-about__text {
+        max-width: none;
+        margin-bottom: 32px;
+    }
+}
+
+@media (max-width: 575.98px) {
+    .crc-about .crc-about__heading {
+        font-size: 1.625rem;
+        margin-bottom: 28px;
+    }
+    .crc-docs {
+        padding: 16px;
+    }
+}
+
+/* ---------- Kontakty ---------- */
+
+.crc-contact {
+    background: var(--crc-yellow);
+    padding: 64px 0 72px;
+    font-family: Sansation, sans-serif;
+    color: var(--crc-navy);
+}
+
+.crc-contact__heading {
+    margin: 0 0 32px;
+    font-size: 2.25rem;
+    font-weight: 700;
+    text-align: center;
+}
+
+.crc-contact__grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 16px;
+}
+
+.crc-contact__item {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    width: 340px;
+    max-width: 100%;
+    padding: 20px 22px;
+    border-radius: 14px;
+    background: var(--crc-navy);
+    color: var(--crc-white);
+}
+
+a.crc-contact__item {
+    transition: background-color 0.15s ease;
+}
+
+a.crc-contact__item:hover,
+a.crc-contact__item:focus-visible {
+    background: var(--crc-navy-2);
+    color: var(--crc-white);
+    text-decoration: none;
+}
+
+a.crc-contact__item:focus-visible {
+    outline: 3px solid var(--crc-navy);
+    outline-offset: 3px;
+}
+
+.crc-contact__icon {
+    flex: none;
+    width: 2.25rem;
+    color: var(--crc-yellow);
+    font-size: 2rem;
+    text-align: center;
+}
+
+.crc-contact__label {
+    display: block;
+    color: var(--crc-gold);
+    font-size: 0.9375rem;
+    line-height: 1.3;
+}
+
+.crc-contact__value {
+    display: block;
+    font-size: 1.1875rem;
+    font-weight: 700;
+    line-height: 1.3;
+    word-break: break-word;
+}
+
+.crc-contact__item--pending .crc-contact__value {
+    font-weight: normal;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+@media (max-width: 575.98px) {
+    .crc-contact {
+        padding: 48px 0 56px;
+    }
+    .crc-contact__heading {
+        font-size: 1.75rem;
+        margin-bottom: 24px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .crc-docs__item,
+    a.crc-contact__item {
+        transition: none;
+    }
+}
+
+/* ---------- Parametry, kategorie a ceny poroty ---------- */
+
+.crc-rules {
+    padding-bottom: 24px;
+    font-family: Sansation, sans-serif;
+    color: var(--crc-white);
+    text-align: left;
+}
+
+/* .crc-rules kvůli přebití .article-list h2/p ze styles.min.css */
+.crc-rules .crc-rules__heading {
+    margin: 72px 0 28px;
+    padding: 0;
+    color: var(--crc-gold);
+    font-size: 2.25rem;
+    font-weight: 700;
+    line-height: 1.2;
+    text-align: center;
+}
+
+.crc-specs {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.crc-specs__item {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: 22px 20px;
+    border: 1px solid rgba(199, 185, 118, 0.5);
+    border-radius: 18px;
+    background: rgba(0, 20, 51, 0.75);
+}
+
+.crc-specs__icon {
+    margin-bottom: 8px;
+    color: var(--crc-yellow);
+    font-size: 1.75rem;
+}
+
+.crc-specs__value {
+    font-size: 1.75rem;
+    font-weight: 700;
+    line-height: 1.15;
+    white-space: nowrap;
+}
+
+.crc-specs__label {
+    color: var(--crc-gold);
+    font-size: 0.9375rem;
+    line-height: 1.3;
+}
+
+.crc-cats {
+    row-gap: 16px;
+}
+
+.crc-cat {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    padding: 28px;
+    border: 1px solid rgba(199, 185, 118, 0.5);
+    border-radius: 18px;
+    background: rgba(0, 20, 51, 0.75);
+}
+
+.crc-rules .crc-cat__title {
+    margin: 0;
+    padding: 0;
+    color: var(--crc-yellow);
+    font-size: 1.75rem;
+    font-weight: 700;
+}
+
+.crc-rules .crc-cat__audience {
+    margin: 4px 0 16px;
+    color: var(--crc-gold);
+    font-size: 1rem;
+}
+
+.crc-rules .crc-cat__desc {
+    margin: 0 0 24px;
+    color: var(--crc-white);
+    font-size: 1.0625rem;
+    line-height: 1.65;
+}
+
+.crc-cat__specs {
+    margin: auto 0 0;
+}
+
+.crc-cat__spec {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 12px 16px;
+    border-radius: 12px;
+    background: var(--crc-navy-2);
+}
+
+.crc-cat__spec + .crc-cat__spec {
+    margin-top: 8px;
+}
+
+.crc-cat__spec dt {
+    display: flex;
+    flex: 1;
+    align-items: center;
+    gap: 12px;
+    margin: 0;
+    font-weight: normal;
+    color: rgba(255, 255, 255, 0.85);
+}
+
+.crc-cat__spec dd {
+    margin: 0;
+    color: var(--crc-yellow);
+    font-weight: 700;
+    text-align: right;
+}
+
+.crc-cat__icon {
+    flex: none;
+    width: 1.5rem;
+    color: var(--crc-yellow);
+    font-size: 1.375rem;
+    text-align: center;
+}
+
+.crc-rules .crc-rules__note {
+    max-width: 44rem;
+    margin: 28px auto 0;
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.9375rem;
+    line-height: 1.6;
+    text-align: center;
+}
+
+.crc-rules__note strong {
+    color: var(--crc-gold);
+}
+
+.crc-prizes {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.crc-prizes li {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 22px;
+    border: 1px solid rgba(199, 185, 118, 0.5);
+    border-radius: 999px;
+    background: rgba(0, 20, 51, 0.75);
+    font-size: 1.0625rem;
+    font-weight: 700;
+}
+
+.crc-prizes i {
+    color: var(--crc-yellow);
+    font-size: 1.25rem;
+}
+
+@media (max-width: 991.98px) {
+    .crc-specs {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 575.98px) {
+    .crc-rules .crc-rules__heading {
+        margin-top: 56px;
+        font-size: 1.625rem;
+    }
+    .crc-specs {
+        gap: 10px;
+    }
+    .crc-specs__item {
+        padding: 16px 14px;
+    }
+    .crc-specs__value {
+        font-size: 1.25rem;
+    }
+    .crc-specs__label {
+        font-size: 0.875rem;
+    }
+    .crc-cat {
+        padding: 20px 16px;
+    }
+    .crc-cat__spec {
+        padding: 10px 12px;
+        font-size: 0.9375rem;
+    }
+    .crc-prizes {
+        flex-direction: column;
+    }
+    .crc-prizes li {
+        border-radius: 14px;
+    }
+}
