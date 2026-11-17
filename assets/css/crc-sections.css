@@ -1,4 +1,4 @@
-/* Odpočet, základní informace a kontakty na úvodní stránce (CZ i EN) */
+/* Úvodní stránka (CZ i EN): hero, odpočet, galerie, datum a místo, partneři, informace o soutěži, kontakty a patička */
 
 :root {
     --crc-navy: #001433;
@@ -8,78 +8,172 @@
     --crc-white: #ffffff;
 }
 
+/* ---------- Úvodní fotka (hero) ---------- */
+
+/* Jedna fotka zážehu přes celou výšku okna. Raketa je vpravo, nápis vlevo
+   na ztmavené části fotky. Dole se fotka rozmaže a přejde do žluté sekce s odpočtem.
+   Fotka je o desetinu zvětšená a přisazená vlevo, aby rampa nezasahovala pod nápis. */
+.crc-hero {
+    position: relative;
+    display: flex;
+    align-items: center;
+    height: 100vh;
+    min-height: 600px;
+    overflow: hidden;
+    background-color: var(--crc-navy);
+    background-image:
+        linear-gradient(180deg, rgba(0, 20, 51, 0.6) 0, rgba(0, 20, 51, 0) 170px),
+        linear-gradient(90deg, rgba(0, 20, 51, 0.8) 0%, rgba(0, 20, 51, 0.45) 40%, rgba(0, 20, 51, 0) 68%),
+        url("../img/fullsize/2026/hero-start.webp");
+    background-position: 0 0, 0 0, 0 100%;
+    background-repeat: no-repeat;
+    background-size: 100% 100%, 100% 100%, auto max(100%, 73.4vw);
+    text-align: left;
+}
+
+.crc-hero::after {
+    content: "";
+    position: absolute;
+    /* Přesah do stran a dolů, aby na okrajích nebyla vidět hrana rozmazání */
+    right: -40px;
+    bottom: -4px;
+    left: -40px;
+    height: 30%;
+    /* Rozmazání začíná výš než žlutá, ta přichází až u spodního okraje */
+    background: linear-gradient(180deg, rgba(255, 222, 89, 0) 45%, rgba(255, 222, 89, 0.18) 64%, rgba(255, 222, 89, 0.55) 82%, rgba(255, 222, 89, 0.88) 92%, var(--crc-yellow) 97%);
+    -webkit-backdrop-filter: blur(30px);
+    backdrop-filter: blur(30px);
+    -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 45%);
+    mask-image: linear-gradient(180deg, transparent 0%, #000 45%);
+    pointer-events: none;
+}
+
+/* Nad fotkou je navigace průhledná, takže text musí být světlý.
+   !important přebíjí barvy zapsané přímo v HTML. */
+@media (min-width: 992px) and (orientation: landscape) {
+    #mainNav:not(.navbar-shrink) > .container > p,
+    #mainNav:not(.navbar-shrink) .navbar-nav > li.nav-item > a.nav-link {
+        color: var(--crc-white) !important;
+        text-shadow: 0 1px 10px rgba(0, 20, 51, 0.7);
+    }
+    #mainNav:not(.navbar-shrink) .navbar-nav > li.nav-item > a.nav-link.active,
+    #mainNav:not(.navbar-shrink) .navbar-nav > li.nav-item > a.nav-link:hover {
+        color: var(--crc-yellow) !important;
+    }
+}
+
+.crc-hero__title {
+    max-width: 9em;
+    margin: 0;
+    color: var(--crc-yellow);
+    font-family: Sansation, sans-serif;
+    font-size: clamp(2.5rem, 4.8vw, 4.25rem);
+    font-weight: 700;
+    line-height: 1.08;
+    text-transform: uppercase;
+}
+
+/* Na mobilu a na obrazovkách na výšku je fotka nahoře celá a nápis pod ní */
+@media (max-width: 991.98px), (orientation: portrait) {
+    .crc-hero {
+        display: block;
+        height: auto;
+        min-height: 0;
+        /* 127px je výška pevné navigace */
+        padding: calc(127px + 66vw + 20px) 0 36px;
+        background-image:
+            linear-gradient(#fff, #fff),
+            linear-gradient(180deg, rgba(0, 20, 51, 0) 82%, var(--crc-navy) 100%),
+            url("../img/fullsize/2026/hero-start-sm.webp");
+        background-position: 0 0, 0 127px, 50% 127px;
+        /* Bílá je pod navigací. Přechod je o 1px vyšší, aby pod fotkou nezůstala linka */
+        background-size: 100% 127px, 100% calc(66vw + 1px), 100% 66vw;
+    }
+    .crc-hero::after {
+        display: none;
+    }
+    .crc-hero__title {
+        max-width: none;
+        font-size: clamp(2rem, 9.5vw, 3.25rem);
+    }
+}
+
+/* Na tabletu na výšku by malá verze fotky byla neostrá */
+@media (min-width: 600px) and (max-width: 991.98px), (min-width: 600px) and (orientation: portrait) {
+    .crc-hero {
+        background-image:
+            linear-gradient(#fff, #fff),
+            linear-gradient(180deg, rgba(0, 20, 51, 0) 82%, var(--crc-navy) 100%),
+            url("../img/fullsize/2026/hero-start.webp");
+    }
+}
+
 /* ---------- Odpočet ---------- */
 
+/* Čísla v jemně ztmavených dlaždicích na žlutém pozadí.
+   Sekce navazuje na žlutý přechod pod úvodní fotkou. */
 .crc-countdown {
+    /* Překrývá poslední řádek pixelů fotky, kde by jinak mohla být vidět linka */
+    position: relative;
+    margin-top: -1px;
     background: var(--crc-yellow);
-    padding: 56px 0 64px;
+    padding: 40px 0 72px;
     font-family: Sansation, sans-serif;
     color: var(--crc-navy);
+    text-align: center;
 }
 
 .crc-countdown__title {
-    margin: 0 0 28px;
-    font-size: 1.375rem;
+    margin: 0 0 24px;
+    font-family: Sansation, sans-serif;
+    font-size: 1.25rem;
     font-weight: 700;
-    line-height: 1.3;
-    text-align: center;
+    line-height: 1.4;
 }
 
 .crc-countdown__clock {
     display: flex;
     justify-content: center;
-    align-items: flex-start;
-    gap: 16px;
-}
-
-.crc-countdown__t {
-    align-self: center;
-    margin-right: 8px;
-    padding-bottom: 28px;
-    font-size: 4rem;
-    font-weight: 700;
-    line-height: 1;
+    gap: 12px;
 }
 
 .crc-countdown__unit {
     display: flex;
+    flex: 1 1 0;
     flex-direction: column;
     align-items: center;
-    gap: 10px;
+    gap: 8px;
+    min-width: 0;
+    max-width: 132px;
+    padding: 20px 8px 16px;
+    border-radius: 16px;
+    background: rgba(0, 20, 51, 0.08);
 }
 
 .crc-countdown__value {
-    display: block;
-    min-width: 2.3em;
-    padding: 14px 10px 12px;
-    border-radius: 14px;
-    background: var(--crc-navy);
-    color: var(--crc-yellow);
-    font-size: 4rem;
+    font-size: clamp(2.25rem, 6vw, 4rem);
     font-weight: 700;
     line-height: 1;
-    text-align: center;
     font-variant-numeric: tabular-nums;
 }
 
 .crc-countdown__label {
-    font-size: 1rem;
+    font-size: 0.9375rem;
     line-height: 1.2;
 }
 
 .crc-countdown__cta {
     margin-top: 32px;
-    text-align: center;
 }
 
 .crc-countdown__button {
     display: inline-block;
-    padding: 16px 40px;
+    padding: 14px 36px;
     border: 2px solid var(--crc-navy);
-    border-radius: 14px;
+    border-radius: 999px;
     background: var(--crc-navy);
     color: var(--crc-yellow);
-    font-size: 1.375rem;
+    font-size: 1.125rem;
     font-weight: 700;
     line-height: 1.2;
     transition: background-color 0.15s ease, color 0.15s ease;
@@ -98,200 +192,601 @@
 }
 
 @media (max-width: 575.98px) {
-    .crc-countdown__cta {
-        margin-top: 24px;
-    }
-    .crc-countdown__button {
-        display: block;
-        padding: 14px 20px;
-        font-size: 1.125rem;
-    }
     .crc-countdown {
-        padding: 40px 0 44px;
+        padding: 32px 0 48px;
     }
     .crc-countdown__title {
-        font-size: 1.125rem;
-        margin-bottom: 20px;
+        font-size: 1.0625rem;
+    }
+    .crc-countdown__clock {
+        gap: 8px;
+    }
+    .crc-countdown__unit {
+        padding: 14px 4px 12px;
+        border-radius: 12px;
+    }
+    .crc-countdown__label {
+        font-size: 0.8125rem;
     }
 }
 
-/* Na tabletu se dlaždice v plné velikosti nevejdou do kontejneru */
+/* ---------- Galerie ---------- */
+
+/* Fotky jdou vedle sebe v posuvném pásu, vždy je vidět jedna.
+   Posouvá se prstem, klávesnicí nebo šipkami (assets/js/gallery.js). */
+.crc-gallery {
+    padding: 64px 0 32px;
+    background: var(--crc-white);
+    font-family: Sansation, sans-serif;
+    color: var(--crc-navy);
+}
+
+.crc-gallery__track {
+    display: flex;
+    overflow-x: auto;
+    border-radius: 18px;
+    scroll-behavior: smooth;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+}
+
+.crc-gallery__track::-webkit-scrollbar {
+    display: none;
+}
+
+.crc-gallery__track:focus-visible {
+    outline: 3px solid var(--crc-navy);
+    outline-offset: 3px;
+}
+
+.crc-gallery__slide {
+    flex: 0 0 100%;
+    margin: 0;
+    aspect-ratio: 16 / 9;
+    background: var(--crc-navy);
+    scroll-snap-align: start;
+}
+
+.crc-gallery__slide img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.crc-gallery__controls {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 16px;
+}
+
+.crc-gallery__count {
+    margin: 0 auto 0 0;
+    font-size: 1.0625rem;
+    font-variant-numeric: tabular-nums;
+}
+
+.crc-gallery__button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    padding: 0;
+    border: 2px solid var(--crc-navy);
+    border-radius: 50%;
+    background: transparent;
+    color: var(--crc-navy);
+    transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.crc-gallery__button:hover:not(:disabled),
+.crc-gallery__button:focus-visible {
+    background: var(--crc-navy);
+    color: var(--crc-yellow);
+}
+
+.crc-gallery__button:focus-visible {
+    outline: 3px solid var(--crc-navy);
+    outline-offset: 3px;
+}
+
+.crc-gallery__button:disabled {
+    opacity: 0.3;
+}
+
+@media (max-width: 575.98px) {
+    .crc-gallery {
+        padding: 40px 0 16px;
+    }
+    .crc-gallery__track {
+        border-radius: 12px;
+    }
+    .crc-gallery__slide {
+        aspect-ratio: 3 / 2;
+    }
+}
+
+/* ---------- Datum a místo ---------- */
+
+/* Dva údaje vedle sebe bez karet, oddělené jen tenkou linkou nahoře */
+.crc-facts {
+    padding: 24px 0 48px;
+    background: var(--crc-white);
+    font-family: Sansation, sans-serif;
+    color: var(--crc-navy);
+    text-align: left;
+}
+
+.crc-facts__list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px 48px;
+    margin: 0;
+}
+
+.crc-facts__item {
+    padding-top: 20px;
+    border-top: 1px solid rgba(0, 20, 51, 0.2);
+}
+
+.crc-facts__label {
+    margin: 0 0 8px;
+    color: rgba(0, 20, 51, 0.7);
+    font-size: 1rem;
+    font-weight: 400;
+}
+
+.crc-facts__value {
+    margin: 0;
+    font-size: clamp(1.5rem, 3vw, 2.25rem);
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+.crc-facts__note {
+    max-width: 34rem;
+    margin: 16px 0 0;
+    color: rgba(0, 20, 51, 0.7);
+    font-size: 0.875rem;
+    line-height: 1.55;
+}
+
+@media (max-width: 767.98px) {
+    .crc-facts {
+        padding: 16px 0 32px;
+    }
+    .crc-facts__list {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ---------- Partneři a organizátor ---------- */
+
+/* Dva zaoblené panely ve stejné šířce jako fotka v galerii: text vlevo, logo vpravo.
+   Generální partner má světlý panel (logo je barevné), organizátor tmavý. */
+.crc-partners {
+    padding: 0 0 96px;
+    background: var(--crc-white);
+    font-family: Sansation, sans-serif;
+    color: var(--crc-navy);
+    text-align: left;
+}
+
+.crc-partners__panel {
+    display: grid;
+    grid-template-columns: 1fr 260px;
+    gap: 24px 56px;
+    align-items: center;
+    padding: 56px;
+    border-radius: 18px;
+}
+
+.crc-partners__panel + .crc-partners__panel {
+    margin-top: 16px;
+}
+
+.crc-partners__panel--light {
+    grid-template-columns: 1fr minmax(0, 480px);
+    background: #f1f3f7;
+}
+
+.crc-partners__panel--dark {
+    background: var(--crc-navy);
+    color: var(--crc-white);
+}
+
+.crc-partners__label {
+    margin: 0 0 4px;
+    color: rgba(0, 20, 51, 0.7);
+    font-family: Sansation, sans-serif;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+}
+
+.crc-partners__panel--dark .crc-partners__label {
+    color: var(--crc-gold);
+}
+
+.crc-partners__name {
+    margin: 0 0 24px;
+    font-family: Sansation, sans-serif;
+    font-size: clamp(1.75rem, 3.4vw, 2.5rem);
+    font-weight: 700;
+    line-height: 1.15;
+}
+
+.crc-partners__panel--dark .crc-partners__name {
+    margin-bottom: 16px;
+    color: var(--crc-yellow);
+}
+
+.crc-partners__text p {
+    max-width: 40rem;
+    margin: 0 0 28px;
+    color: rgba(255, 255, 255, 0.85);
+    font-size: 1rem;
+    line-height: 1.65;
+}
+
+.crc-partners__link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 24px;
+    border: 2px solid var(--crc-navy);
+    border-radius: 999px;
+    background: var(--crc-navy);
+    color: var(--crc-yellow);
+    font-size: 1rem;
+    font-weight: 700;
+    line-height: 1.2;
+    transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.crc-partners__link:hover,
+.crc-partners__link:focus-visible {
+    background: transparent;
+    color: var(--crc-navy);
+    text-decoration: none;
+}
+
+.crc-partners__link:focus-visible {
+    outline: 3px solid var(--crc-navy);
+    outline-offset: 3px;
+}
+
+.crc-partners__panel--dark .crc-partners__link {
+    border-color: var(--crc-yellow);
+    background: var(--crc-yellow);
+    color: var(--crc-navy);
+}
+
+.crc-partners__panel--dark .crc-partners__link:hover,
+.crc-partners__panel--dark .crc-partners__link:focus-visible {
+    background: transparent;
+    color: var(--crc-yellow);
+}
+
+.crc-partners__panel--dark .crc-partners__link:focus-visible {
+    outline-color: var(--crc-white);
+}
+
+.crc-partners__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+/* Vedlejší tlačítko: jen obrys, vyplní se po najetí */
+.crc-partners__panel--dark .crc-partners__link--outline {
+    background: transparent;
+    color: var(--crc-yellow);
+}
+
+.crc-partners__panel--dark .crc-partners__link--outline:hover,
+.crc-partners__panel--dark .crc-partners__link--outline:focus-visible {
+    background: var(--crc-yellow);
+    color: var(--crc-navy);
+}
+
+.crc-partners__logo img {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+/* Logo spolku je v souboru modré, filtr ho na tmavém panelu obarví na bílo */
+.crc-partners__panel--dark .crc-partners__logo img {
+    filter: brightness(0) invert(1);
+}
+
 @media (max-width: 991.98px) {
-    .crc-countdown__t,
-    .crc-countdown__value {
-        font-size: 3rem;
+    .crc-partners__panel--light {
+        grid-template-columns: 1fr;
+    }
+    .crc-partners__logo--wide {
+        order: -1;
+        max-width: 420px;
+        margin: -16px 0 -8px -7.5%;
     }
 }
 
 @media (max-width: 767.98px) {
-    .crc-countdown__clock {
-        flex-wrap: wrap;
-        gap: 8px;
+    .crc-partners {
+        padding-bottom: 56px;
     }
-    .crc-countdown__t {
-        flex-basis: 100%;
-        margin: 0 0 4px;
-        padding: 0;
-        font-size: 2rem;
-        text-align: center;
+    .crc-partners__panel {
+        grid-template-columns: 1fr;
+        padding: 28px 20px 32px;
+        border-radius: 12px;
     }
-    /* Všechny čtyři dlaždice v jednom řádku */
-    .crc-countdown__unit {
-        flex: 1 1 0;
-        min-width: 0;
-        max-width: 84px;
-    }
-    .crc-countdown__value {
-        width: 100%;
-        min-width: 0;
-        font-size: 2.25rem;
-        padding: 10px 4px 8px;
-        border-radius: 10px;
-    }
-    .crc-countdown__label {
-        font-size: 0.875rem;
+    .crc-partners__panel--dark .crc-partners__logo {
+        order: -1;
+        width: 150px;
+        margin: -12px 0 -8px -18px;
     }
 }
 
-/* ---------- Základní informace ---------- */
+/* ---------- Informace o soutěži ---------- */
 
-/* Horní odsazení dává už sekce #informace (.article-list) */
-.crc-about {
-    padding-bottom: 24px;
+/* Celá sekce stojí na jednom vzoru: tenká linka, malý popisek, pod ním výrazný údaj.
+   Žádné rámečky ani ikony, jen text na tmavém pozadí. */
+.crc-info {
+    padding: 104px 0 112px;
+    background: var(--crc-navy);
     font-family: Sansation, sans-serif;
     color: var(--crc-white);
     text-align: left;
 }
 
-/* .crc-about kvůli přebití .article-list h2 ze styles.min.css */
-.crc-about .crc-about__heading {
-    margin: 0 auto 40px;
-    max-width: 22em;
-    color: var(--crc-gold);
-    font-size: 2.25rem;
+.crc-info__heading {
+    margin: 0 0 28px;
+    color: var(--crc-white);
+    font-family: Sansation, sans-serif;
+    font-size: clamp(1.75rem, 3.4vw, 2.5rem);
     font-weight: 700;
-    line-height: 1.2;
-    text-align: center;
+    line-height: 1.15;
 }
 
-.crc-about__text {
-    max-width: 38rem;
+/* Nadpisy dalších částí (parametry, kategorie, ceny) */
+.crc-info > .container > .crc-info__heading {
+    margin-top: 104px;
 }
 
-.crc-about__text p {
-    margin: 0 0 1.1em;
-    font-size: 1.0625rem;
-    line-height: 1.65;
-}
-
-.crc-about__text strong {
-    color: var(--crc-yellow);
-}
-
-.crc-about__note {
-    padding-top: 14px;
-    border-top: 1px solid rgba(199, 185, 118, 0.4);
-    color: rgba(255, 255, 255, 0.7);
-}
-
-.crc-about__text p.crc-about__note {
-    font-size: 0.875rem;
+.crc-info__label {
+    margin: 0 0 4px;
+    color: rgba(255, 255, 255, 0.65);
+    font-family: Sansation, sans-serif;
+    font-size: 1rem;
+    font-weight: 400;
     line-height: 1.5;
 }
 
-.crc-docs {
-    padding: 24px;
-    border: 1px solid rgba(199, 185, 118, 0.5);
-    border-radius: 18px;
-    background: rgba(0, 20, 51, 0.75);
+/* Tenké linkové ikony u údajů, všechny ve stejném stylu */
+.crc-info__icon {
+    flex: none;
+    color: var(--crc-yellow);
 }
 
-.crc-docs__title {
-    margin: 0 0 16px;
-    color: var(--crc-gold);
+.crc-info__intro {
+    display: grid;
+    grid-template-columns: 7fr 5fr;
+    gap: 48px 72px;
+}
+
+.crc-info__about p {
+    max-width: 38rem;
+    margin: 0 0 1.1em;
+    color: rgba(255, 255, 255, 0.85);
+    font-size: 1.0625rem;
+    line-height: 1.7;
+}
+
+.crc-info__about strong {
+    color: var(--crc-white);
+}
+
+.crc-info__about p.crc-info__footnote {
+    margin: 28px 0 0;
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 0.875rem;
+    line-height: 1.55;
+}
+
+.crc-info__doclist {
+    margin: 12px 0 0;
+    padding: 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    list-style: none;
+}
+
+.crc-info__doclist a {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 18px 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    color: var(--crc-white);
+    transition: color 0.15s ease;
+}
+
+.crc-info__doclist a:hover,
+.crc-info__doclist a:focus-visible {
+    color: var(--crc-yellow);
+    text-decoration: none;
+}
+
+.crc-info__doclist a:focus-visible {
+    outline: 3px solid var(--crc-white);
+    outline-offset: 3px;
+}
+
+.crc-info__docname {
+    flex: 1;
     font-size: 1.25rem;
     font-weight: 700;
+    line-height: 1.3;
 }
 
-.crc-docs__list {
+.crc-info__docmeta {
+    color: rgba(255, 255, 255, 0.65);
+    font-size: 0.875rem;
+}
+
+.crc-info__doclist svg {
+    flex: none;
+}
+
+.crc-info__specs {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 32px;
+    margin: 0;
+}
+
+.crc-info__specs > div,
+.crc-info__cat,
+.crc-info__prizes li {
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.crc-info__specs .crc-info__icon {
+    display: block;
+    width: 28px;
+    height: 28px;
+    margin-bottom: 14px;
+}
+
+.crc-info__specs dt {
+    margin: 0 0 8px;
+    color: rgba(255, 255, 255, 0.65);
+    font-size: 1rem;
+    font-weight: 400;
+}
+
+.crc-info__specs dd {
+    margin: 0;
+    color: var(--crc-yellow);
+    font-size: clamp(1.5rem, 2.6vw, 2.125rem);
+    font-weight: 700;
+    line-height: 1.2;
+    white-space: nowrap;
+}
+
+.crc-info__cats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+}
+
+.crc-info__cat-title {
+    margin: 0 0 14px;
+    color: var(--crc-yellow);
+    font-family: Sansation, sans-serif;
+    font-size: clamp(1.5rem, 2.6vw, 2.125rem);
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+.crc-info__cat-desc {
+    margin: 0 0 24px;
+    color: rgba(255, 255, 255, 0.85);
+    font-size: 1.0625rem;
+    line-height: 1.7;
+}
+
+.crc-info__rows {
+    margin: 0;
+}
+
+.crc-info__rows > div {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 14px 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.crc-info__rows dt {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: rgba(255, 255, 255, 0.65);
+    font-weight: 400;
+}
+
+.crc-info__rows dd {
+    margin: 0;
+    font-weight: 700;
+    text-align: right;
+}
+
+.crc-info__note {
+    max-width: 44rem;
+    margin: 40px 0 0;
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 0.875rem;
+    line-height: 1.55;
+}
+
+.crc-info__note strong {
+    color: rgba(255, 255, 255, 0.85);
+}
+
+.crc-info__prizes {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
     margin: 0;
     padding: 0;
     list-style: none;
 }
 
-.crc-docs__list li + li {
-    margin-top: 10px;
-}
-
-.crc-docs__item {
+.crc-info__prizes li {
     display: flex;
     align-items: center;
-    gap: 14px;
-    padding: 14px 16px;
-    border-radius: 12px;
-    background: var(--crc-navy-2);
-    color: var(--crc-white);
-    transition: background-color 0.15s ease, color 0.15s ease;
-}
-
-.crc-docs__item:hover,
-.crc-docs__item:focus-visible {
-    background: var(--crc-yellow);
-    color: var(--crc-navy);
-    text-decoration: none;
-}
-
-.crc-docs__item:focus-visible {
-    outline: 3px solid var(--crc-white);
-    outline-offset: 2px;
-}
-
-.crc-docs__icon {
-    flex: none;
-    width: 1.5rem;
-    color: var(--crc-yellow);
-    font-size: 1.5rem;
-    text-align: center;
-}
-
-.crc-docs__item:hover .crc-docs__icon,
-.crc-docs__item:focus-visible .crc-docs__icon {
-    color: var(--crc-navy);
-}
-
-.crc-docs__name {
-    flex: 1;
-    font-size: 1.125rem;
+    gap: 12px;
+    font-size: 1.25rem;
     font-weight: 700;
-    line-height: 1.25;
-}
-
-.crc-docs__meta {
-    display: block;
-    font-size: 0.875rem;
-    font-weight: normal;
-    opacity: 0.75;
-}
-
-.crc-docs__download {
-    flex: none;
-    font-size: 1.125rem;
+    line-height: 1.3;
 }
 
 @media (max-width: 991.98px) {
-    .crc-about__text {
-        max-width: none;
-        margin-bottom: 32px;
+    .crc-info__intro {
+        grid-template-columns: 1fr;
+    }
+    .crc-info__specs {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 767.98px) {
+    .crc-info {
+        padding: 64px 0 72px;
+    }
+    .crc-info > .container > .crc-info__heading {
+        margin-top: 72px;
+    }
+    .crc-info__cats,
+    .crc-info__prizes {
+        grid-template-columns: 1fr;
+    }
+    .crc-info__prizes {
+        gap: 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    }
+    .crc-info__prizes li {
+        padding: 18px 0;
     }
 }
 
 @media (max-width: 575.98px) {
-    .crc-about .crc-about__heading {
-        font-size: 1.625rem;
-        margin-bottom: 28px;
-    }
-    .crc-docs {
-        padding: 16px;
+    .crc-info__specs {
+        gap: 24px 16px;
     }
 }
 
@@ -384,223 +879,113 @@ a.crc-contact__item:focus-visible {
     }
 }
 
-@media (prefers-reduced-motion: reduce) {
-    .crc-countdown__button,
-    .crc-docs__item,
-    a.crc-contact__item {
-        transition: none;
-    }
-}
+/* ---------- Patička ---------- */
 
-/* ---------- Parametry, kategorie a ceny poroty ---------- */
-
-.crc-rules {
-    padding-bottom: 24px;
+/* Tři sloupce ve stejném vzoru jako sekce informací: linka, popisek, údaj */
+.crc-footer {
+    padding: 72px 0 88px;
+    background: var(--crc-navy);
     font-family: Sansation, sans-serif;
     color: var(--crc-white);
     text-align: left;
 }
 
-/* .crc-rules kvůli přebití .article-list h2/p ze styles.min.css */
-.crc-rules .crc-rules__heading {
-    margin: 72px 0 28px;
-    padding: 0;
-    color: var(--crc-gold);
-    font-size: 2.25rem;
+.crc-footer__grid {
+    display: grid;
+    grid-template-columns: 5fr 4fr 3fr;
+    gap: 40px 48px;
+}
+
+.crc-footer__item {
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.crc-footer__label {
+    margin: 0 0 8px;
+    color: rgba(255, 255, 255, 0.65);
+    font-size: 1rem;
+    line-height: 1.5;
+}
+
+.crc-footer__hashtag {
+    margin: 0;
+    color: var(--crc-yellow);
+    font-size: clamp(1.25rem, 2.2vw, 1.75rem);
     font-weight: 700;
     line-height: 1.2;
-    text-align: center;
+    overflow-wrap: anywhere;
 }
 
-.crc-specs {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 16px;
-    margin: 0;
-    padding: 0;
-    list-style: none;
-}
-
-.crc-specs__item {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-    padding: 22px 20px;
-    border: 1px solid rgba(199, 185, 118, 0.5);
-    border-radius: 18px;
-    background: rgba(0, 20, 51, 0.75);
-}
-
-.crc-specs__icon {
-    margin-bottom: 8px;
-    color: var(--crc-yellow);
-    font-size: 1.75rem;
-}
-
-.crc-specs__value {
-    font-size: 1.75rem;
-    font-weight: 700;
-    line-height: 1.15;
-    white-space: nowrap;
-}
-
-.crc-specs__label {
-    color: var(--crc-gold);
-    font-size: 0.9375rem;
-    line-height: 1.3;
-}
-
-.crc-cats {
-    row-gap: 16px;
-}
-
-.crc-cat {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    padding: 28px;
-    border: 1px solid rgba(199, 185, 118, 0.5);
-    border-radius: 18px;
-    background: rgba(0, 20, 51, 0.75);
-}
-
-.crc-rules .crc-cat__title {
-    margin: 0;
-    padding: 0;
-    color: var(--crc-yellow);
-    font-size: 1.75rem;
-    font-weight: 700;
-}
-
-.crc-rules .crc-cat__audience {
-    margin: 4px 0 16px;
-    color: var(--crc-gold);
-    font-size: 1rem;
-}
-
-.crc-rules .crc-cat__desc {
-    margin: 0 0 24px;
+.crc-footer__org {
     color: var(--crc-white);
-    font-size: 1.0625rem;
-    line-height: 1.65;
-}
-
-.crc-cat__specs {
-    margin: auto 0 0;
-}
-
-.crc-cat__spec {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    padding: 12px 16px;
-    border-radius: 12px;
-    background: var(--crc-navy-2);
-}
-
-.crc-cat__spec + .crc-cat__spec {
-    margin-top: 8px;
-}
-
-.crc-cat__spec dt {
-    display: flex;
-    flex: 1;
-    align-items: center;
-    gap: 12px;
-    margin: 0;
-    font-weight: normal;
-    color: rgba(255, 255, 255, 0.85);
-}
-
-.crc-cat__spec dd {
-    margin: 0;
-    color: var(--crc-yellow);
+    font-size: 1.25rem;
     font-weight: 700;
-    text-align: right;
+    line-height: 1.3;
+    transition: color 0.15s ease;
 }
 
-.crc-cat__icon {
-    flex: none;
-    width: 1.5rem;
+.crc-footer__org:hover,
+.crc-footer__org:focus-visible {
     color: var(--crc-yellow);
-    font-size: 1.375rem;
-    text-align: center;
+    text-decoration: none;
 }
 
-.crc-rules .crc-rules__note {
-    max-width: 44rem;
-    margin: 28px auto 0;
-    color: rgba(255, 255, 255, 0.7);
-    font-size: 0.9375rem;
-    line-height: 1.6;
-    text-align: center;
-}
-
-.crc-rules__note strong {
-    color: var(--crc-gold);
-}
-
-.crc-prizes {
+.crc-footer__social {
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
-    gap: 12px;
-    margin: 0;
+    gap: 10px;
+    margin: 4px 0 0;
     padding: 0;
     list-style: none;
 }
 
-.crc-prizes li {
+.crc-footer__social a {
     display: flex;
     align-items: center;
-    gap: 12px;
-    padding: 14px 22px;
-    border: 1px solid rgba(199, 185, 118, 0.5);
-    border-radius: 999px;
-    background: rgba(0, 20, 51, 0.75);
-    font-size: 1.0625rem;
-    font-weight: 700;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    border: 1.5px solid rgba(255, 255, 255, 0.5);
+    border-radius: 50%;
+    color: var(--crc-white);
+    transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
 }
 
-.crc-prizes i {
-    color: var(--crc-yellow);
-    font-size: 1.25rem;
+.crc-footer__social a:hover,
+.crc-footer__social a:focus-visible {
+    border-color: var(--crc-yellow);
+    background: var(--crc-yellow);
+    color: var(--crc-navy);
 }
 
-@media (max-width: 991.98px) {
-    .crc-specs {
-        grid-template-columns: repeat(2, 1fr);
+.crc-footer__org:focus-visible,
+.crc-footer__social a:focus-visible {
+    outline: 3px solid var(--crc-white);
+    outline-offset: 3px;
+}
+
+@media (max-width: 767.98px) {
+    .crc-footer {
+        padding: 56px 0 96px;
+    }
+    .crc-footer__grid {
+        grid-template-columns: 1fr;
+        gap: 32px;
     }
 }
 
-@media (max-width: 575.98px) {
-    .crc-rules .crc-rules__heading {
-        margin-top: 56px;
-        font-size: 1.625rem;
+@media (prefers-reduced-motion: reduce) {
+    .crc-gallery__track {
+        scroll-behavior: auto;
     }
-    .crc-specs {
-        gap: 10px;
-    }
-    .crc-specs__item {
-        padding: 16px 14px;
-    }
-    .crc-specs__value {
-        font-size: 1.25rem;
-    }
-    .crc-specs__label {
-        font-size: 0.875rem;
-    }
-    .crc-cat {
-        padding: 20px 16px;
-    }
-    .crc-cat__spec {
-        padding: 10px 12px;
-        font-size: 0.9375rem;
-    }
-    .crc-prizes {
-        flex-direction: column;
-    }
-    .crc-prizes li {
-        border-radius: 14px;
+    .crc-gallery__button,
+    .crc-partners__link,
+    .crc-countdown__button,
+    .crc-info__doclist a,
+    .crc-footer__org,
+    .crc-footer__social a,
+    a.crc-contact__item {
+        transition: none;
     }
 }
