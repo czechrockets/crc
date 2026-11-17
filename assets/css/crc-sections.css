@@ -262,9 +262,16 @@
 }
 
 .crc-gallery__count {
-    margin: 0 auto 0 0;
+    margin: 0;
     font-size: 1.0625rem;
     font-variant-numeric: tabular-nums;
+}
+
+/* Autor fotek vedle počítadla, odsune šipky doprava */
+.crc-gallery__credit {
+    margin: 0 auto 0 6px;
+    color: rgba(0, 20, 51, 0.7);
+    font-size: 0.9375rem;
 }
 
 .crc-gallery__button {
