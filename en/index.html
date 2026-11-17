@@ -67,8 +67,18 @@
         </div>
     </header>
     <section class="crc-countdown">
-        <div class="container boxed-countdown" data-countdown="11/17/2026 00:00:00" data-countdown-next="01/17/2027 23:59:59" data-countdown-next-title="Time until registration deadline (17.01.2027 23:59)">
-            <h2 class="crc-countdown__title countdown-title">Time until registration opens (17.11.2026)</h2>
+        <div class="container boxed-countdown" data-countdown="01/17/2027 23:59:59">
+            <h2 class="crc-countdown__title countdown-title">Time until registration deadline (17.01.2027 23:59)</h2>
+            <!-- Termíny, ke kterým odpočet postupně běží (assets/js/countdown-next.js) -->
+            <ol class="crc-countdown__phases" hidden>
+                <li data-until="01/17/2027 23:59:59" data-register>Time until registration deadline (17.01.2027 23:59)</li>
+                <li data-until="03/07/2027 23:59:59">Time until the concept report deadline (7 March 2027)</li>
+                <li data-until="05/02/2027 23:59:59">Time until the final report draft deadline for university teams (2 May 2027)</li>
+                <li data-until="05/09/2027 23:59:59">Time until the final report draft deadline for high school teams (9 May 2027)</li>
+                <li data-until="06/27/2027 23:59:59">Time until the final report deadline for university teams (27 June 2027)</li>
+                <li data-until="07/11/2027 23:59:59">Time until the final report deadline for high school teams (11 July 2027)</li>
+                <li data-until="07/29/2027 00:00:00">Time until launch days (29–30 July 2027)</li>
+            </ol>
             <div class="crc-countdown__clock" role="timer">
                 <div class="crc-countdown__unit">
                     <span class="crc-countdown__value number-days">00</span>
@@ -240,7 +250,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.3.1/js/swiper.jquery.min.js"></script>
     <script src="../assets/js/script.min.js?h=77bac50c7697461926a64dbf3a119997"></script>
-    <script src="../assets/js/countdown-next.js?h=b19d911beda7976f8d334f45f58dd3fa"></script>
+    <script src="../assets/js/countdown-next.js?h=a532e66c40848417702400d1b7c899fc"></script>
     <script src="../assets/js/gallery.js?h=f19554d5550970b646fcf2d96bf7440f"></script>
     <script src="../assets/js/aos.min.min.js?h=d3718e34eeb0355be8e3179a2e2bccb7"></script>
 </body>
